@@ -1,0 +1,2 @@
+export CIVITAI_API_KEY="EXAMPLE"
+export HF_API_KEY="EXAMPLE"

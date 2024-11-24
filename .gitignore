@@ -1,0 +1,7 @@
+.venv
+models
+.envrc
+negative.txt
+output.png
+__pycache__/
+.idea
