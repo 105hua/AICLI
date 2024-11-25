@@ -1,3 +1,7 @@
+"""
+This is the main script for AICLI.
+"""
+
 import os
 from simple_term_menu import TerminalMenu
 from modules import general
@@ -12,6 +16,10 @@ from menus import (
 MODELS_PATH = os.path.join(os.getcwd(), "models")
 
 def main():
+    """
+    The main function that is ran when this script is executed.
+    :return:
+    """
     os.makedirs(MODELS_PATH, exist_ok=True)
     general.clear_screen()
     options = [
@@ -36,7 +44,7 @@ def main():
     if selected_option == "exit" or selected_option is None:
         print("AICLI will now exit. See you soon!")
         return
-    elif selected_option == "local_image_generation":
+    if selected_option == "local_image_generation":
         local_image_generation.menu()
     elif selected_option == "local_text_generation":
         local_text_generation.menu()
@@ -46,7 +54,6 @@ def main():
         online_text_generation.menu()
     elif selected_option == "gpu_info":
         gpu_info.menu()
-
 
 if __name__ == "__main__":
     main()

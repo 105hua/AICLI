@@ -1,3 +1,9 @@
+"""
+This is the package for the Online Text Generation Menu.
+"""
+
+# pylint: disable=C0301,E0401,R0915
+
 import os
 from openai import OpenAI
 from together import Together
@@ -5,22 +11,10 @@ from simple_term_menu import TerminalMenu
 from modules import general
 
 OPENAI_OPTIONS = [
-    {
-        "name": "GPT-4o",
-        "value": "gpt-4o"
-    },
-    {
-        "name": "GPT-4o Mini",
-        "value": "gpt-4o-mini"
-    },
-    {
-        "name": "o1 Preview",
-        "value": "o1-preview"
-    },
-    {
-        "name": "o1 Mini",
-        "value": "o1-mini"
-    }
+    {"name": "GPT-4o", "value": "gpt-4o"},
+    {"name": "GPT-4o Mini", "value": "gpt-4o-mini"},
+    {"name": "o1 Preview", "value": "o1-preview"},
+    {"name": "o1 Mini", "value": "o1-mini"}
 ]
 
 TOGETHER_OPTIONS = models = [
@@ -58,6 +52,10 @@ TOGETHER_OPTIONS = models = [
 ]
 
 def menu():
+    """
+    This is the Menu for Online Text Generation.
+    :return:
+    """
     general.clear_screen()
     service_menu = TerminalMenu(
         [
@@ -72,6 +70,10 @@ def menu():
         print("You've selected an invalid input, please try again.")
         selected_service_index = service_menu.show()
     if selected_service_index == 0:
+        if "OPENAI_API_KEY" not in os.environ:
+            general.clear_screen()
+            print("Please ensure the OPENAI_API_KEY variable is set to use this feature.")
+            return
         general.clear_screen()
         client = OpenAI()
         model_menu = TerminalMenu(
@@ -100,6 +102,10 @@ def menu():
         general.clear_screen()
         print(f"Generated Text\n====================\n\n{response}\n")
     elif selected_service_index == 1:
+        if "TOGETHER_API_KEY" not in os.environ:
+            general.clear_screen()
+            print("Please ensure the TOGETHER_API_KEY variable is set to use this feature.")
+            return
         general.clear_screen()
         client = Together()
         model_menu = TerminalMenu(

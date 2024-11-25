@@ -1,3 +1,9 @@
+"""
+This is the package for the Online Image Generation Menu.
+"""
+
+# pylint: disable=E0401,R0914,R0912,R0915,E1136,R0911
+
 import os
 from simple_term_menu import TerminalMenu
 from openai import OpenAI
@@ -7,6 +13,10 @@ from tqdm import tqdm
 from modules import general
 
 def menu():
+    """
+    This is the menu function for the Online Image Generation Menu.
+    :return:
+    """
     general.clear_screen()
     service_menu = TerminalMenu(
         [
@@ -59,10 +69,16 @@ def menu():
                 n=1
             )
         image_url = response.data[0].url
-        response = requests.get(
-            image_url,
-            stream=True
-        )
+        try:
+            response = requests.get(
+                image_url,
+                stream=True,
+                timeout=30
+            )
+        except requests.exceptions.Timeout:
+            general.clear_screen()
+            print("The request timed out, please try again later.")
+            return
         if not response.ok:
             general.clear_screen()
             print("Image URL was not valid, please try again.")
@@ -74,9 +90,9 @@ def menu():
             unit="iB",
             unit_scale=True,
             unit_divisor=1024
-        ) as bar:
+        ) as progress_bar:
             for data in response.iter_content(chunk_size=1024):
-                bar.update(len(data))
+                progress_bar.update(len(data))
                 file.write(data)
         general.clear_screen()
         print("Your image has been generated and saved as 'output.png' in your running directory.")
@@ -130,17 +146,23 @@ def menu():
             except ValueError:
                 pass
         general.clear_screen()
-        response = client.images.generate(
+        gen_response = client.images.generate(
             model=model_str,
             prompt=prompt,
             steps=steps,
             n=1
         )
-        image_url = response.data[0].url
-        response = requests.get(
-            image_url,
-            stream=True
-        )
+        image_url = gen_response.data[0].url
+        try:
+            response = requests.get(
+                image_url,
+                stream=True,
+                timeout=30
+            )
+        except requests.exceptions.Timeout:
+            general.clear_screen()
+            print("The request timed out, please try again later.")
+            return
         if not response.ok:
             general.clear_screen()
             print("Image URL was not valid, please try again.")
@@ -152,9 +174,9 @@ def menu():
                 unit="iB",
                 unit_scale=True,
                 unit_divisor=1024
-        ) as bar:
+        ) as progress_bar:
             for data in response.iter_content(chunk_size=1024):
-                bar.update(len(data))
+                progress_bar.update(len(data))
                 file.write(data)
         general.clear_screen()
         print("Your image has been generated and saved as 'output.png' in your running directory.")

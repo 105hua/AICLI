@@ -1,0 +1,1 @@
+pygount --suffix=py --format=summary .

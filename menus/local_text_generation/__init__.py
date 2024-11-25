@@ -1,9 +1,19 @@
+"""
+This is the package for the Local Text Generation Menu.
+"""
+
+# pylint: disable=C0301,E0401
+
 import os
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from modules import general
 
 def menu():
+    """
+    This is the menu for Local Text Generation.
+    :return:
+    """
     model_id = None
     while model_id is None or model_id == "":
         general.clear_screen()

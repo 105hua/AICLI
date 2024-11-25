@@ -1,3 +1,9 @@
+"""
+This is the package for the Local Image Generation Menu.
+"""
+
+# pylint: disable=C0301,E0401,R0914,R0912,R0915,R0911
+
 import sys
 import os
 import json
@@ -443,10 +449,16 @@ def _civitai_download():
             model_id = int(input())
         except ValueError:
             pass
-    response = requests.get(
-        f"https://civitai.com/api/v1/models/{model_id}",
-        headers={"Authorization": f"Bearer {os.environ['CIVITAI_API_KEY']}"}
-    )
+    try:
+        response = requests.get(
+            f"https://civitai.com/api/v1/models/{model_id}",
+            headers={"Authorization": f"Bearer {os.environ['CIVITAI_API_KEY']}"},
+            timeout=30
+        )
+    except requests.exceptions.Timeout:
+        general.clear_screen()
+        print("The request timed out.")
+        return
     if not response.ok:
         general.clear_screen()
         print("We couldn't get any information on that Model from CivitAI. Are you sure you have the right ID?")
@@ -485,9 +497,9 @@ def _civitai_download():
     base_model = latest_version["baseModel"]
     model_type = "na"
     if base_model in STABLE_DIFFUSION_MODELS:
-        model_type = "sd",
+        model_type = "sd"
     elif base_model in STABLE_DIFFUSION_THREE_MODELS:
-        model_type = "sd3",
+        model_type = "sd3"
     elif base_model in SDXL_MODELS:
         model_type = "sdxl"
     elif base_model in FLUX_MODELS:
@@ -496,11 +508,17 @@ def _civitai_download():
         general.clear_screen()
         print("The Base Model for this Model is not supported by AICLI.")
         return
-    download_response = requests.get(
-        file_url,
-        headers={"Authorization": f"Bearer {os.environ['CIVITAI_API_KEY']}"},
-        stream=True
-    )
+    try:
+        download_response = requests.get(
+            file_url,
+            headers={"Authorization": f"Bearer {os.environ['CIVITAI_API_KEY']}"},
+            stream=True,
+            timeout=300
+        )
+    except requests.exceptions.Timeout:
+        general.clear_screen()
+        print("The request timed out.")
+        return
     if not download_response.ok:
         general.clear_screen()
         print("Download URL response was not OK. Please rerun AICLI and try again.")
@@ -513,9 +531,9 @@ def _civitai_download():
         unit="iB",
         unit_scale=True,
         unit_divisor=1024
-    ) as bar:
+    ) as progress_bar:
         for data in download_response.iter_content(1024):
-            bar.update(len(data))
+            progress_bar.update(len(data))
             file.write(data)
     config_json = {
         "name": model_name,
@@ -549,6 +567,10 @@ def _civitai_submenu():
         print("An invalid index has been selected.")
 
 def menu():
+    """
+    This is the menu for Local Image Generation.
+    :return:
+    """
     # Ask the user if they want an online inference or a local inference.
     inference_type_menu = TerminalMenu(
         [
@@ -570,4 +592,3 @@ def menu():
     else:
         general.clear_screen()
         print("An invalid option was selected. Please run the program again.")
-        return
