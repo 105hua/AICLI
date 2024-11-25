@@ -5,6 +5,7 @@ from menus import (
     local_text_generation,
     local_image_generation,
     online_image_generation,
+    online_text_generation,
     gpu_info
 )
 
@@ -17,6 +18,7 @@ def main():
         "Local Image Generation",
         "Local Text Generation",
         "Online Image Generation",
+        "Online Text Generation",
         "GPU Info",
         "Exit"
     ]
@@ -40,6 +42,8 @@ def main():
         local_text_generation.menu()
     elif selected_option == "online_image_generation":
         online_image_generation.menu()
+    elif selected_option == "online_text_generation":
+        online_text_generation.menu()
     elif selected_option == "gpu_info":
         gpu_info.menu()
 
