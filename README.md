@@ -1,0 +1,32 @@
+# 🦾 AICLI
+
+AICLI is a CLI Tool, written with Python 3.12, with the aim of streamlining
+the process of interacting with various different types of Artificial Intelligence,
+from a range of different services. The project is currently a WIP, meaning that
+its features may have varying levels of support. You can check if your task is
+supported by referring to the table in the *Supported Features* section.
+
+## 🤔 Features
+
+The following table contains a list of currently planned features to add to AICLI.
+Please note that features may be added, removed, or modified depending on factors,
+including but not limited to Software Limitations.
+
+### Key
+
+| Emoji | Meaning                     |
+|-------|-----------------------------|
+| 🟥    | Unsupported                 |
+| 🟨    | Implementation in progress  |
+| 🟩    | Implemented                 |
+
+
+### Feature Statuses
+
+| Status | Feature                                                           |
+|--------|-------------------------------------------------------------------|
+| 🟩     | **Local** Image Generation with Models from HuggingFace & CivitAI |
+| 🟥     | **Online** Image Generation through OpenAI, CivitAI & Together AI |
+| 🟥     | **Local** LLM Inferencing with HuggingFace & Ollama Models        |
+| 🟥     | Utility Toolset with functions such as calculating tokens         |
+| 🟥     | GPU Information E.G. Available VRAM                               |

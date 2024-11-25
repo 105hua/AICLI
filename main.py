@@ -1,8 +1,7 @@
-import sys
 import os
 from simple_term_menu import TerminalMenu
 from modules import general
-from menus import image_generation, text_generation
+from menus import local_image_generation, local_text_generation
 
 MODELS_PATH = os.path.join(os.getcwd(), "models")
 ENV_VARS = ["CIVITAI_API_KEY", "HF_API_KEY"]
@@ -15,8 +14,8 @@ def main():
     os.makedirs(MODELS_PATH, exist_ok=True)
     general.clear_screen()
     options = [
-        "Image Generation",
-        "Text Generation",
+        "Local Image Generation",
+        "Local Text Generation",
         "Exit"
     ]
     main_terminal_menu = TerminalMenu(
@@ -32,11 +31,11 @@ def main():
     general.clear_screen()
     if selected_option == "exit" or selected_option is None:
         print("AICLI will now exit. See you soon!")
-        sys.exit(0)
-    if selected_option == "image_generation":
-        image_generation.menu()
-    if selected_option == "text_generation":
-        text_generation.menu()
+        return
+    if selected_option == "local_image_generation":
+        local_image_generation.menu()
+    if selected_option == "local_text_generation":
+        local_text_generation.menu()
 
 
 if __name__ == "__main__":
