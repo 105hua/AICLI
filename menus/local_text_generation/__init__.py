@@ -1,5 +1,5 @@
 import os
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from modules import general
 
 def menu():
@@ -10,10 +10,13 @@ def menu():
         model_id = str(input())
     general.clear_screen()
     try:
+        bab_config = BitsAndBytesConfig(
+            load_in_4bit=True
+        )
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
             device_map="auto",
-            load_in_4bit=True,
+            quantization_config=bab_config,
             token=os.environ["HF_API_KEY"]
         )
         tokenizer = AutoTokenizer.from_pretrained(
