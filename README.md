@@ -26,7 +26,7 @@ including but not limited to Software Limitations.
 | Status | Feature                                                           |
 |--------|-------------------------------------------------------------------|
 | 🟩     | **Local** Image Generation with Models from HuggingFace & CivitAI |
-| 🟥     | **Online** Image Generation through OpenAI, CivitAI & Together AI |
+| 🟨     | **Online** Image Generation through OpenAI, CivitAI & Together AI |
 | 🟩     | **Local** LLM Inferencing with HuggingFace & Ollama Models        |
 | 🟥     | Utility Toolset with functions such as calculating tokens         |
 | 🟥     | GPU Information E.G. Available VRAM                               |

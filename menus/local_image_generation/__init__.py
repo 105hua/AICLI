@@ -431,6 +431,10 @@ def _civitai_inference():
     print("\nYour image has now been generated! You can find it saved as 'output.png' in your running directory.")
 
 def _civitai_download():
+    if "CIVITAI_API_KEY" not in os.environ:
+        general.clear_screen()
+        print("Please set the CIVITAI_API_KEY variable in your .envrc to use this feature.")
+        return
     model_id = None
     while model_id is None:
         try:

@@ -11,21 +11,26 @@ def menu():
         model_id = str(input())
     general.clear_screen()
     try:
-        bab_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16
-        )
-        model = AutoModelForCausalLM.from_pretrained(
-            model_id,
-            device_map="auto",
-            quantization_config=bab_config,
-            token=os.environ["HF_API_KEY"]
-        )
-        tokenizer = AutoTokenizer.from_pretrained(
-            model_id,
-            padding_side="left",
-            token=os.environ["HF_API_KEY"]
-        )
+        if "HF_API_KEY" in os.environ:
+            bab_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16
+            )
+            model = AutoModelForCausalLM.from_pretrained(
+                model_id,
+                device_map="auto",
+                quantization_config=bab_config,
+                token=os.environ["HF_API_KEY"]
+            )
+            tokenizer = AutoTokenizer.from_pretrained(
+                model_id,
+                padding_side="left",
+                token=os.environ["HF_API_KEY"]
+            )
+        else:
+            general.clear_screen()
+            print("To use this feature, please set the HF_API_KEY in your .envrc file.")
+            return
     except OSError:
         general.clear_screen()
         print("The Model could not be loaded. Please rerun AICLI.")
