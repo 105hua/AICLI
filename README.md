@@ -33,3 +33,8 @@ including but not limited to Software Limitations.
 
 **NOTE:** Local LLM Inferencing is supported with HuggingFace Models only.
 Support for Ollama Models will be brought to AICLI at a later time.
+
+## ⚖️ License
+
+AICLI is licensed under the 
+[GNU Affero General Public License v3.0](https://choosealicense.com/licenses/agpl-3.0/).
