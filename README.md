@@ -27,6 +27,9 @@ including but not limited to Software Limitations.
 |--------|-------------------------------------------------------------------|
 | 🟩     | **Local** Image Generation with Models from HuggingFace & CivitAI |
 | 🟥     | **Online** Image Generation through OpenAI, CivitAI & Together AI |
-| 🟥     | **Local** LLM Inferencing with HuggingFace & Ollama Models        |
+| 🟩     | **Local** LLM Inferencing with HuggingFace & Ollama Models        |
 | 🟥     | Utility Toolset with functions such as calculating tokens         |
 | 🟥     | GPU Information E.G. Available VRAM                               |
+
+**NOTE:** Local LLM Inferencing is supported with HuggingFace Models only.
+Support for Ollama Models will be brought to AICLI at a later time.
