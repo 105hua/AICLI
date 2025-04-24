@@ -17,7 +17,7 @@ OPENAI_OPTIONS = [
     {"name": "o1 Mini", "value": "o1-mini"}
 ]
 
-TOGETHER_OPTIONS = models = [
+TOGETHER_OPTIONS = [
     {"name": "Llama 3.1 8B Instruct Turbo", "value": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"},
     {"name": "Llama 3.1 70B Instruct Turbo", "value": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"},
     {"name": "Llama 3.1 405B Instruct Turbo", "value": "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo"},
